@@ -22,7 +22,7 @@ if __name__ == "__main__":
     quality = args.quality
     reformat = args.reformat
     overwrite = args.overwrite
-    jump = args.percentage
+    jump = args.jump
     # print("reformat: %s" % reformat)
     # print("overwrite: %s" % overwrite)
     # print("jump: %s" % jump)
@@ -56,10 +56,10 @@ if __name__ == "__main__":
                                 t_size = tmp_file.length()
                                 pp = (s_size - t_size) / s_size*100
                                 if pp < jump:
-                                    print("膨胀:%.2f%% [%s] 多了%.2f bytes 不处理..." % (pp, filename, (s_size - t_size) / 1024))
+                                    print("膨胀:%.5G%%\t 多了%.5g bytes\t [%s]\t不处理..." % (-pp, ((t_size - s_size) / 1024), filename))
                                     tmp_file.delete()
                                 else:
-                                    print("压缩:%.2f%% [%s] 节省%.2f bytes" % (pp, filename, (s_size - t_size) / 1024))
+                                    print("压缩:%.5G%%\t 节省%.5g bytes\t [%s]" % (pp, ((s_size - t_size) / 1024), filename))
                                     d_list.append(tmp_file)
                                     s_list.append(file)
                             except Exception:
@@ -73,10 +73,10 @@ if __name__ == "__main__":
                             t_size = tmp_file.length()
                             pp = (s_size - t_size) / s_size * 100
                             if pp < jump:
-                                print("膨胀:%.2f%% [%s] 多了%.2f bytes 不处理..." % (pp, filename, (s_size - t_size) / 1024))
+                                print("膨胀:%.5G%%\t 多了%.5g bytes\t [%s]\t不处理..." % (-pp, ((t_size - s_size) / 1024), filename))
                                 tmp_file.delete()
                             else:
-                                print("压缩:%.2f%% [%s] 节省%.2f bytes" % (pp, filename, (s_size - t_size) / 1024))
+                                print("压缩:%.5G%%\t 节省%.5g bytes\t [%s]" % (pp, ((s_size - t_size) / 1024), filename,))
                                 d_list.append(tmp_file)
                                 s_list.append(file)
                         else:
