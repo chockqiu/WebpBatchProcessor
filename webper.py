@@ -55,8 +55,11 @@ if __name__ == "__main__":
                                 s_size = file.length()
                                 t_size = tmp_file.length()
                                 pp = (s_size - t_size) / s_size*100
-                                if pp < jump:
+                                if pp < 0:
                                     print("膨胀:%.5G%%\t 多了%.5g bytes\t [%s]\t不处理..." % (-pp, ((t_size - s_size) / 1024), filename))
+                                    tmp_file.delete()
+                                elif pp < jump:
+                                    print("压缩:%.5G%%\t 节省%.5g bytes\t [%s]\t不处理..." % (pp, ((s_size - t_size) / 1024), filename))
                                     tmp_file.delete()
                                 else:
                                     print("压缩:%.5G%%\t 节省%.5g bytes\t [%s]" % (pp, ((s_size - t_size) / 1024), filename))
@@ -72,8 +75,11 @@ if __name__ == "__main__":
                             s_size = file.length()
                             t_size = tmp_file.length()
                             pp = (s_size - t_size) / s_size * 100
-                            if pp < jump:
+                            if pp < 0:
                                 print("膨胀:%.5G%%\t 多了%.5g bytes\t [%s]\t不处理..." % (-pp, ((t_size - s_size) / 1024), filename))
+                                tmp_file.delete()
+                            elif pp < jump:
+                                print("压缩:%.5G%%\t 节省%.5g bytes\t [%s]\t不处理..." % (pp, ((s_size - t_size) / 1024), filename))
                                 tmp_file.delete()
                             else:
                                 print("压缩:%.5G%%\t 节省%.5g bytes\t [%s]" % (pp, ((s_size - t_size) / 1024), filename,))
