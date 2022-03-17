@@ -54,7 +54,7 @@ def unpack(zip_path, extract_dir):
     shutil.unpack_archive(zip_path, extract_dir)
 
 
-separator = os.linesep
+separator = os.path.sep
 
 
 class File(object):
