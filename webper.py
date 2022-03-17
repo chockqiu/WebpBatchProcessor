@@ -6,7 +6,7 @@ import argparse
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(prog="webper", description="webp图片批处理工具, 支持 pg/jpeg/png/webp后缀图片 不支持.9图")
+    parser = argparse.ArgumentParser(prog="webper", description="webp图片批处理工具, 支持将jpg/jpeg/png/webp转成Webp格式图片[不支持.9图]")
     parser.add_argument("-d", "--dir", type=str, metavar="directory", required=False, dest="directory", default=".",
                         help="运行文件夹")
     parser.add_argument("-q", "--quality", type=int, metavar="quality", required=False, dest="quality", default=85,
@@ -15,14 +15,14 @@ if __name__ == "__main__":
                         help="webp文件是否需要重新压缩")
     parser.add_argument("-o", "--overwrite", action="store_true", dest="overwrite", default=False,
                         help="是否覆盖源文件")
-    parser.add_argument("-jp", "--jump", type=int, metavar="jump", dest="jump", default=5,
-                        help="重新压缩时小于多少个百分比时跳过")
+    parser.add_argument("-j", "--jump", type=int, metavar="percentage", dest="jump", default=5,
+                        help="webp文件重新压缩时压缩字节数小于多少个百分比时跳过不处理")
 
     args = parser.parse_args()
     quality = args.quality
     reformat = args.reformat
     overwrite = args.overwrite
-    jump = args.jump
+    jump = args.percentage
     # print("reformat: %s" % reformat)
     # print("overwrite: %s" % overwrite)
     # print("jump: %s" % jump)
