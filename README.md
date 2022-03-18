@@ -18,7 +18,16 @@ optional arguments:
                         webp文件重新压缩时压缩字节数小于多少个百分比时跳过不处理
 ```
 
-#### 使用示例
-```commandline
-python webper.py -d ./testimgs
+##### 使用示例
+##### - Windows环境
+下载 webper.exe
+> 链接: https://pan.baidu.com/s/1FzhA2HXUBcr56MEYvLVtiw?pwd=46rd 
+提取码: 46rd 
+```
+webper.exe -d ./testimgs -r -q 80
+```
+
+###### - Python环境
+```
+python webper.py -d ./testimgs -r -q 80
 ```
