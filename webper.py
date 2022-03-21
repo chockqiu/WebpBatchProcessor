@@ -15,14 +15,14 @@ if __name__ == "__main__":
                         help="webp文件是否需要重新压缩")
     parser.add_argument("-o", "--overwrite", action="store_true", dest="overwrite", default=False,
                         help="是否覆盖源文件")
-    parser.add_argument("-j", "--jump", type=int, metavar="percentage", dest="jump", default=5,
-                        help="webp文件重新压缩时压缩字节数小于多少个百分比时跳过不处理")
+    parser.add_argument("-j", "--jump", type=int, metavar="kbs", dest="jump", default=5*1024,
+                        help="webp文件重新压缩时压缩字节数小于多少个kb时跳过不处理")
 
     args = parser.parse_args()
     quality = args.quality
     reformat = args.reformat
     overwrite = args.overwrite
-    jump = args.jump
+    jump = args.jump * 1024
     # print("reformat: %s" % reformat)
     # print("overwrite: %s" % overwrite)
     # print("jump: %s" % jump)
@@ -54,11 +54,12 @@ if __name__ == "__main__":
                                 tmp_file = File.File(tmp_file_path)
                                 s_size = file.length()
                                 t_size = tmp_file.length()
+                                ps = s_size - t_size
                                 pp = (s_size - t_size) / s_size*100
                                 if pp < 0:
                                     print("膨胀:%.5G%%\t 多了%.5g bytes\t [%s]\t不处理..." % (-pp, ((t_size - s_size) / 1024), filename))
                                     tmp_file.delete()
-                                elif pp < jump:
+                                elif ps < jump:
                                     print("压缩:%.5G%%\t 节省%.5g bytes\t [%s]\t不处理..." % (pp, ((s_size - t_size) / 1024), filename))
                                     tmp_file.delete()
                                 else:
@@ -74,11 +75,12 @@ if __name__ == "__main__":
                             tmp_file = File.File(tmp_file_path)
                             s_size = file.length()
                             t_size = tmp_file.length()
+                            ps = s_size - t_size
                             pp = (s_size - t_size) / s_size * 100
                             if pp < 0:
                                 print("膨胀:%.5G%%\t 多了%.5g bytes\t [%s]\t不处理..." % (-pp, ((t_size - s_size) / 1024), filename))
                                 tmp_file.delete()
-                            elif pp < jump:
+                            elif ps < jump:
                                 print("压缩:%.5G%%\t 节省%.5g bytes\t [%s]\t不处理..." % (pp, ((s_size - t_size) / 1024), filename))
                                 tmp_file.delete()
                             else:
