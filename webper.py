@@ -15,7 +15,7 @@ if __name__ == "__main__":
                         help="webp文件是否需要重新压缩")
     parser.add_argument("-o", "--overwrite", action="store_true", dest="overwrite", default=False,
                         help="是否覆盖源文件")
-    parser.add_argument("-j", "--jump", type=int, metavar="kbs", dest="jump", default=5*1024,
+    parser.add_argument("-j", "--jump", type=int, metavar="kbs", dest="jump", default=5,
                         help="webp文件重新压缩时压缩字节数小于多少个kb时跳过不处理")
 
     args = parser.parse_args()
