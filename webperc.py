@@ -29,7 +29,10 @@ if __name__ == "__main__":
                     try:
                         im = Image.open(file.getPath()).convert("RGBA")
                         tmp_file_path = filename[:filename.index(".")] + ".webp"
-                        im.save(tmp_file_path, "WEBP", quality=quality)
+                        if quality == 100:
+                            im.save(tmp_file_path, "WEBP", lossless=True, method=6)
+                        else:
+                            im.save(tmp_file_path, "WEBP", quality=quality, method=6)
                         im.close()
                         tmp_file = File.File(tmp_file_path)
                         s_size = file.length()
@@ -50,7 +53,7 @@ if __name__ == "__main__":
                 elif filename.endswith(".webp"):
                     im = Image.open(file.getPath()).convert("RGBA")
                     tmp_file_path = filename[:filename.index(".")] + "_%s.webp" % time.time()
-                    im.save(tmp_file_path, "WEBP", quality=quality)
+                    im.save(tmp_file_path, "WEBP", quality=quality, method=6)
                     im.close()
                     tmp_file = File.File(tmp_file_path)
                     s_size = file.length()
@@ -74,3 +77,4 @@ if __name__ == "__main__":
                 print("[%s] not support" % filename)
         else:
             print("[%s] not found" % file.getPath())
+    time.sleep(3)

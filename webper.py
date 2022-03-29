@@ -50,7 +50,10 @@ if __name__ == "__main__":
                             try:
                                 im = Image.open(file.getPath()).convert("RGBA")
                                 tmp_file_path = tempDir.getPath() + File.separator + filename[:filename.index(".")] + ".webp"
-                                im.save(tmp_file_path, "WEBP", quality=quality)
+                                if quality == 100:
+                                    im.save(tmp_file_path, "WEBP", lossless=True, method=6)
+                                else:
+                                    im.save(tmp_file_path, "WEBP", quality=quality, method=6)
                                 tmp_file = File.File(tmp_file_path)
                                 s_size = file.length()
                                 t_size = tmp_file.length()
@@ -71,7 +74,7 @@ if __name__ == "__main__":
                         elif filename.endswith(".webp") and reformat:
                             im = Image.open(file.getPath()).convert("RGBA")
                             tmp_file_path = tempDir.getPath() + File.separator + filename
-                            im.save(tmp_file_path, "WEBP", quality=quality)
+                            im.save(tmp_file_path, "WEBP", quality=quality, method=6)
                             tmp_file = File.File(tmp_file_path)
                             s_size = file.length()
                             t_size = tmp_file.length()
