@@ -1,5 +1,5 @@
 import os
-import sys
+import time
 from PIL import Image
 import File
 import argparse
@@ -15,6 +15,8 @@ if __name__ == "__main__":
                         help="webp文件是否需要重新压缩")
     parser.add_argument("-o", "--overwrite", action="store_true", dest="overwrite", default=False,
                         help="是否覆盖源文件")
+    parser.add_argument("-p", "--pause", action="store_true", dest="pause", default=False,
+                        help="执行完是否暂停窗口以便查看输出")
     parser.add_argument("-j", "--jump", type=int, metavar="kbs", dest="jump", default=5,
                         help="webp文件重新压缩时压缩字节数小于多少个kb时跳过不处理")
 
@@ -22,6 +24,7 @@ if __name__ == "__main__":
     quality = args.quality
     reformat = args.reformat
     overwrite = args.overwrite
+    pause = args.pause
     jump = args.jump * 1024
     # print("reformat: %s" % reformat)
     # print("overwrite: %s" % overwrite)
@@ -109,8 +112,14 @@ if __name__ == "__main__":
                 tempDir.delete()
             else:
                 tempDir.rename(outputDir.getPath())
+                if len(outputDir.listFile()) == 0:
+                    outputDir.delete()
                 print("Done")
         else:
             print("directory不存在或者不是一个文件夹")
     else:
         print("directory参数缺失")
+    if pause:
+        print("\n")
+        print("-" * 30)
+        input("程序执行完毕，按回车结束程序")

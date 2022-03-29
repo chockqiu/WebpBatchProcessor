@@ -12,10 +12,13 @@ if __name__ == "__main__":
                         help="质量百分比[0-100]")
     parser.add_argument("-j", "--jump", type=int, metavar="kbs", dest="jump", default=5,
                         help="webp文件重新压缩时压缩字节数小于多少个kb时跳过不处理")
+    parser.add_argument("-p", "--pause", action="store_true", dest="pause", default=False,
+                        help="执行完是否暂停窗口以便查看输出")
 
     args = parser.parse_args()
     quality = args.quality
     files = args.files
+    pause = args.pause
     jump = args.jump * 1024
     # print("jump: %s" % jump)
     # print("files: %s" % files)
@@ -77,4 +80,7 @@ if __name__ == "__main__":
                 print("[%s] not support" % filename)
         else:
             print("[%s] not found" % file.getPath())
-    time.sleep(3)
+    if pause:
+        print("\n")
+        print("-" * 30)
+        input("程序执行完毕，按回车结束程序")
